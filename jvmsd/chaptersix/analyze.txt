@@ -1,0 +1,85 @@
+magic : CA FE BA BE
+minor version : 00 00
+major version : 00 34
+constant_pool_count : 00 13 -> 19 - > 1~18 (0作为特殊值，表示"不引用常量池中任何一个索引值")
+
+1.紧接着的0A - > 10 根据常量池中的项目类型可找到 ->CONSTANT_Methodref_info -> 类中方法的符号引用
+结构体为
+CONSTANT_Methodref_info{
+    u1:tag,
+    u2:index,
+    u2:index
+}
+0A 00 04 00 0F
+
+2.紧接着的09 -> 09 -> CONSTANT_Fieledref_info -> 字段的符号引用
+结构体为
+CONSTANT_Fieldref_info{
+    u1:tag,
+    u2:index,
+    u2:index
+}
+09 00 03 00 10
+
+3.紧接着07 -> 07 -> CONSTANT_Class_info -> 类或接口的符号引用
+结构体为
+CONSTANT_Class_info{
+    u1:tag,
+    u2:index
+}
+07 00 11
+
+4.紧接着07 -> 07 -> CONSTANT_Class_info -> 类或接口的符号引用
+结构体为
+CONSTANT_Class_info{
+    u1:tag,
+    u2:index
+}
+07 00 12
+
+
+5.紧接着01 -> 01 -> CONSTANT_Utf8_info -> UTF-8编码的字符串
+结构体为
+CONSTANT_Utf8_info{
+    u1:tag,
+    u2:length,//编码字符串占用长度
+    u1:bytes //长度为length字节的UTF-8编码字符串
+}
+01 00 01 6D (这里6D通过ASCLL码表转换为"m"字符)
+
+6.紧接着01 00 01 49("I"字符)
+7.紧接着01 00 06 3C 69 6E 69 74 3E ("<init>")
+8.紧接着01 00 03 28 29 56("()V")
+9.紧接着01 00 04 43 6F 64 65 ("Code")
+10.紧接着01 00 0F 4C 69 6E 65 4E 75 6D 62 65 72 54 61 62 6C 65("LineNumberTable")
+11.紧接着01 00 03 69 6E 63("inc")
+12.紧接着01 00 03 28 29 49("()I")
+13.紧接着01 00 0A 53 6F 75 72 63 65 46 69 6C 65("SourceFile")
+14.紧接着01 00 0A 44 65 6D 6F 31 2E 6A 61 76 61
+
+15.紧接着0C -> 12 -> CONSTANT_NameAndType_info->字段或方法的部分符号引用
+结构体为
+CONSTANT_NameAndType_info{
+    u1:tag,
+    u2:index,//指向该字段或方法名称常量项的索引
+    u2:index    //指向该字段或方法描述符常量项的索引
+}
+0C 00 07 00 08
+
+16.紧接着0C 00 05 00 06
+17.紧接着01 00 16 6A 76 6D 73 64 2F 63 68 61 70 74 65 72 73 69 78 2F 44 65 6D 6F 31("jvmsd/chaptersix/Demo1")
+18.紧接着01 00 10 6A 61 76 61 2F 6C 61 6E 67 2F 4F 62 6A 65 63 74("java/lang/Object")
+至此 常量池18个变量索引1~18(还有一个0为保留索引)
+
+紧接着访问标志 00 21
+ACC_PUBLIC 0x0001 是否为public类型
+ACC_FINAL 0x0010 是否被声明为final 只有类可设置
+ACC_SUPER 0x0020 是否允许使用invokespecial字节码指令的新语义，jdk1.0.2之后编译出来的这个标志都必须为真
+ACC_INTERFACE 0x0200 表示这是一个接口
+ACC_ABSTRACT 0x0400 是否为abstract类型，对于接口或者抽象类来说，此标志为真，其他类值为假
+ACC_SYNTHETIC 0x1000 标识这个类并非由用户代码产生的
+ACC_ANNOTATION 0x2000 标识这是一个注解
+ACC_ENUM 0x4000 标识这是一个枚举
+图中的00 21 无法在访问标志表中直接查询到，其实是 ACC_PUBLIC | ACC_SUPER = 0x0021
+
+
