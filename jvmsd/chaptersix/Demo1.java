@@ -56,9 +56,23 @@ public class Demo1 {
     }
 
     public void tDemo() {
+        // try {
+        // try {
+        // throw new A();
+        // } catch (A a) {
+        // System.out.println("catch a");
+        // throw a;
+        // }
+        // } catch (B b) {
+        // System.out.println("catch b");
+        // return;
+        // } finally {
+        // System.out.println("hello world");
+        // }
+
         try {
             try {
-                throw new A();
+                throw new B();
             } catch (A a) {
                 System.out.println("catch a");
                 throw a;
