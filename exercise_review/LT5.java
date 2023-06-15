@@ -3,44 +3,42 @@ package exercise_review;
 public class LT5 {
     public String longestPalindrome(String s) {
 
-        char[] chars = s.toCharArray();
-        int end = chars.length - 1;
+        if (s.length() == 1) {
+            return s;
+        }
         int maxLen = 1;
-        int sPos = 0;
-        for (int i = 0; i <= end; i++) {
-            // decide if current sub string is palindrome
-            for (int j = i + 1; j <= end; j++) {
-                String curVal = s.substring(i, j + 1);
-                int curLen = j - i + 1;
-                if (maxLen < curLen && isPalindrome(curVal)) {
-                    maxLen = curLen;
-                    sPos = i;
+        int cutPoint = 0;
+        int sLen = s.length();
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < sLen; i++) {
+            for (int j = i + 1; j < sLen; j++) {
+                int currentLen = j - i + 1;
+                if (maxLen < currentLen && isPalindrome(chars, i, j)) {
+                    maxLen = currentLen;
+                    cutPoint = i;
                 }
             }
         }
-
-        // find the lengest string
-        return s.substring(sPos, sPos + maxLen);
+        return s.substring(cutPoint, cutPoint + maxLen);
     }
 
-    private boolean isPalindrome(String subString) {
-        int pos = 0;
-        int endPos = subString.length() - 1;
-        while (pos <= endPos) {
-            if (subString.charAt(pos) != subString.charAt(endPos)) {
+    public boolean isPalindrome(char[] s, int i, int j) {
+
+        while (i < j) {
+            if (s[i++] != s[j--]) {
                 return false;
             }
-            pos++;
-            endPos--;
         }
         return true;
     }
 
     public static void main(String[] args) {
-        String target = "abcdef";
+        String target = "cdabbaef";
         // System.out.println(target.substring(0, 5));
-        System.out.println(String.format("palindrome is [%s]", new LT5().longestPalindrome(target)));
 
+        LT5 l5 = new LT5();
+
+        System.out.println(l5.longestPalindrome(target));
     }
 
 }

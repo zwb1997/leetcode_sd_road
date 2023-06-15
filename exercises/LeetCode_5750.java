@@ -5,9 +5,9 @@ import java.util.HashMap;
 
 public class LeetCode_5750 {
     public static int maximumPopulation(int[][] logs) {
-        Arrays.sort(logs, (int[] a,int[] b)->{
-            
-        });
+//        Arrays.sort(logs, (int[] a,int[] b)->{
+//
+//        });
         int peopleSize = 1;
         int pos = 0;
         int len = logs.length;

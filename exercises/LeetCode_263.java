@@ -7,6 +7,7 @@ public class LeetCode_263 {
         if (n < 0) {
             return false;
         }
+        return true;
     }
 
     public static void main(String[] args) {

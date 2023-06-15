@@ -16,6 +16,7 @@ public class LeetCode_5736 {
         int curRunTime = 0;
         int curNeedTime = 0;
         cpuQueue.add(tasks[0][0]);
+        return new int[0];
     }
 
     public static void main(String[] args) {
