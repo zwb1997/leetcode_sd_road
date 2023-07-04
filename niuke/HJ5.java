@@ -7,52 +7,38 @@ import java.util.Stack;
 
 public class HJ5 {
 
-    private Map<Character,Integer> map = new HashMap<>();
-
-    public HJ5(){
-        map.put('0', 0);
-        map.put('1', 1);
-        map.put('2', 2);
-        map.put('3', 3);
-        map.put('4', 4);
-        map.put('5', 5);
-        map.put('6', 6);
-        map.put('7', 7);
-        map.put('8', 8);
-        map.put('9', 9);
-        map.put('A', 10);
-        map.put('B', 11);
-        map.put('C', 12);
-        map.put('D', 13);
-        map.put('E', 14);
-        map.put('F', 15);
-    }
-     
-    public int changeHexToDecimalism(String hex){
-        int sign = 16;
-        int pos = 0;
-        int sum = 0;
-        hex = hex.replaceAll("0x", "");
-        char[] cs = hex.toCharArray();
-        pos = cs.length - 1;
-        for(char c : cs){
-            sum += Math.pow(sign, pos--) * this.map.get(c);
+    public static void solution_1(){
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            String hex = in.nextLine();
+            int dig = 0;
+            hex = hex.replaceAll("0x","");
+            hex = hex.replaceAll("0X","");
+            int res = 0;
+            char[] chars = hex.toCharArray();
+            int len = chars.length;
+            for(int i = len - 1; i >= 0; i--){
+                int curIntVal;
+                if(chars[i] > 57){
+                    curIntVal = chars[i] - '7';
+                }else{
+                    curIntVal = chars[i] - '0';
+                }
+                res += (int)Math.pow(16,dig) * curIntVal;
+                dig+=1;
+            }
+            System.out.println(res);
         }
-
-        return sum;
     }
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
 
-        // String word = in.nextLine();
-
-
-        // int sum = new HJ5().changeHexToDecimalism(word);
-        // System.out.println(sum);
-
-        while(in.hasNextLine()){
-            System.out.println(in.nextLine());
-        }
+//        solution_1();
+        int val = Integer.parseInt("AA",16);
+        System.out.println(val);
+        double d = Double.parseDouble("0x1.8p1d");
+        double d2 = 0x1.8p1D;
+        System.out.println(d);
+        System.out.println(d2);
     }
 }
